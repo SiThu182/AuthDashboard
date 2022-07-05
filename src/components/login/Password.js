@@ -11,6 +11,14 @@ const Password = props => {
 const {title,btnText,footerText,isLogin} = props
 const [toggleCheckBox, setToggleCheckBox] = useState(false)
 
+
+const changeLanguage = (value) => {
+  getLang(value)
+  setModalVisible(false)
+
+  
+}
+
 if(toggleCheckBox){
   ToastAndroid.showWithGravity(
     "Remember Password",

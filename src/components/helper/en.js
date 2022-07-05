@@ -7,4 +7,7 @@ export default {
   noAccount: "You don't have any account please ",
   already: 'Already account',
   next:'Next',
+  price: 'Price',
+  addToCart: 'Add to cart',
+  successAdded: 'Successfully added',
 };

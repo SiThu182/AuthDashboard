@@ -1,8 +1,10 @@
 import React,{useContext, useEffect,useState} from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet,Image, TouchableOpacity } from 'react-native'
 import { appStorage  } from '../../utils';
 import {AuthContext} from '@context/context';
-import { Card } from 'react-native-elements';
+
+import Productlist from '../../components/product/Productlist';
+ import Product from '../../data/Product';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -10,15 +12,16 @@ import {
 
 
  
-const Dashboard = () => {
+const Dashboard = ({navigation}) => {
 
     const {getAuth} = useContext(AuthContext);
     const [data,setData] = useState("")
+    console.log(Product)
+    
     
 
     useEffect(() => {
       getData();
-      alert(data)
       }, []);
   
       const  getData = () => {
@@ -29,32 +32,74 @@ const Dashboard = () => {
          
           }, (err) => {
             console.log(err);
-        });;
+        });
       };
+
+      const detailAction = value => {
+        navigation.navigate('ProductDetail',{data: value})
+      }
     
   return (
-  <View style={{backgroundColor:"#2196F399",height:hp(100)}}>
+  
+  <View style={{backgroundColor:"#2196F399",flex:1,
+      width: wp(100)}}>
 
-    <View style={[styles.card, styles.shadowProp]}>
+    <View style={styles.infoContainer}>
+      <View style={styles.info}>
+        <Image
+          style={{
+            width: hp(5),
+            height: hp(5),
+            resizeMode: 'contain',
+            marginRight:10
+          }}
+          source={{
+            uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg=='
+          }}
+        />
         <View>
-          <Text style={styles.title}>
-            User Name
-          </Text>
+          <Text>Username</Text>
+          <Text>{data}</Text>
         </View>
-        <Text style={styles.email}>
-          Email :{data}
-        </Text>
+       
       </View>
+      <View style={styles.logoutContainer}>
+        <TouchableOpacity onPress={() => alert("logout")} style={styles.logoutbtn}>
+          <Text>Logout</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+
+    <Productlist 
+      data={Product}
+      productDetail={detailAction}
+      />
+
   </View>
   )
 }
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 13,
-    textAlign:'center'
+  infoContainer:{
+    flexDirection:'row',
+    justifyContent:'space-between',
+    padding:hp(0.3),
+    backgroundColor:'#ff4451'
+  },
+  info:{
+    flexDirection:'row',
+    margin:10
+
+  },
+ 
+  logoutContainer:{
+    padding:hp(1.5)
+  },
+  logoutbtn:{
+    backgroundColor:'#4499ff',
+    padding:5,
+    borderRadius:5,
+
   },
   email: {
     fontSize: 13,
@@ -62,23 +107,12 @@ const styles = StyleSheet.create({
     marginBottom: 13,
     textAlign:'center'
   },
-  card: {
-    backgroundColor: 'white',
-    borderRadius: 8,
-    paddingVertical: 45,
-    paddingHorizontal: 25,
-    width: '80%',
-    marginVertical: hp(20),
-    marginHorizontal:wp(10),
-    alignContent:'center',
-    
+ 
+  tinyLogo: {
+    width: 50,
+    height: 50,
   },
-  shadowProp: {
-    shadowColor: '#171717',
-    shadowOffset: {width: -5, height: 4},
-    shadowOpacity: 0.5,
-    shadowRadius: 3,
-  },
+
 });
 
 export default Dashboard

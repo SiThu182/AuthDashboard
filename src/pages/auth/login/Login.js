@@ -9,7 +9,7 @@ const Login = ({navigation}) => {
 
 
 
-const {getLang,login,getLogin,getEmail} = useContext(AuthContext);
+const {login,getLogin,getEmail} = useContext(AuthContext);
 const local = useLocal();
 
 const [email, setEmail] = useState('');
@@ -23,12 +23,6 @@ const showLogin = () => {
    getLogin(true)
 }
 
-const changeLanguage = (value) => {
-  getLang(value)
-  setModalVisible(false)
-
-  
-}
 
 const nextPage = () => {
   navigation.navigate("Security",{name:email})
@@ -43,7 +37,7 @@ const nextPage = () => {
         <Email
           title={local.login}
           btnText={local.next}
-          footerText={local.login}
+          footerText={local.register}
           isLogin={login}
           footerAction={showRegister}
           action={nextPage}
@@ -61,7 +55,7 @@ const nextPage = () => {
         <Email
           title={local.register}
           btnText={local.next}
-          footerText={"Login"}
+          footerText={local.login}
           footerAction={showLogin}
           action={nextPage}
           onChangeEmail={val => setEmail(val)}

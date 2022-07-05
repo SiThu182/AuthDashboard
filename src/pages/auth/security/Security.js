@@ -29,6 +29,7 @@ const footerHandler = () => {
 }
 
 const actionhandler = () => {
+  let token = "10293847456";
   let data = {
     userEmail: route.params.name,
     userPwd: password,
@@ -36,6 +37,8 @@ const actionhandler = () => {
   if(cpassword){
     if(password === cpassword){
       appStorage.setUser("key",JSON.stringify(data))
+      appStorage.setUser("token",token)
+
       getAuth(true)
     }else{
       // ToastAndroid.showWithGravityAndOffset(
@@ -74,7 +77,7 @@ const actionhandler = () => {
     <Password
       title={"Security"}
       btnText={ login ? local.login : local.register }
-      footerText={"Login"}
+      footerText={login ? local.login : local.register}
       footerAction={footerHandler}
       isLogin={login}
       action={actionhandler}

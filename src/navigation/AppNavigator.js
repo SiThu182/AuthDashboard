@@ -8,6 +8,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import {AuthContext} from '../context/context';
 
 import SplashScreen from '../splash/Splash';
+import { appStorage } from '../utils';
+
 
  
 
@@ -28,10 +30,29 @@ const AppNavigator = () => {
   
   useEffect( () => {
     setSplashScreen(true)
+    getData()
      setTimeout(() => {
       setSplashScreen(false);
     }, 3000);
   },[])
+
+  const getData = () => {
+    appStorage.getUser("key").then((res) => {
+      console.log(JSON.parse(res)['userEmail'])
+      let res_data = JSON.parse(res);
+      // setData(res_data['userEmail'])
+     
+      } );
+      appStorage.getUser("token").then((token) => {
+          if(token === "10293847456"){
+            setAuth(true)
+          }
+        // let res_data = JSON.parse(res);
+        // setData(res_data['userEmail'])
+       
+        } );
+  }
+  
 
   const context = {
     lang,

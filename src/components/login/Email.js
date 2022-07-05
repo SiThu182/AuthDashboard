@@ -1,5 +1,7 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import { View, Text, TextInput, TouchableOpacity,Modal,Pressable } from 'react-native'
+import { AuthContext } from '@context/context';
+
 
 import styles from './styles'
 
@@ -8,6 +10,16 @@ const Email = props => {
 
 const {title,btnText,footerText,isLogin} = props
 const [modalVisible, setModalVisible] = useState(false);
+const {getLang} = useContext(AuthContext);
+
+
+
+const changeLanguage = (value) => {
+  getLang(value)
+  setModalVisible(false)
+
+  
+}
 
  
   return (
